@@ -1,19 +1,23 @@
 name: Fork自动同步上游仓库
+
 on:
-  # 北京时间 每日凌晨4点自动拉取（UTC 20:00）
+  # 北京时间每日凌晨 4:00（UTC 20:00）
   schedule:
     - cron: '0 20 * * *'
-  workflow_dispatch: # 网页支持手动一键触发同步
+
+  # 支持网页手动触发
+  workflow_dispatch:
+
+# GitHub Actions 权限
+permissions:
+  contents: write
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: 同步上游 FGBLH/HKL main分支
+    steps:
+      - name: 同步上游 FGBLH/HKL main 分支
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.1
         with:
           upstream_sync_repo: FGBLH/HKL
